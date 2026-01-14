@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berry's Kitchen - Authentic Nigerian Food</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #b91c1c;
+            --secondary: #d97706;
+            --accent: #059669;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        /* Custom Components */
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .section-padding {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (min-width: 640px) {
+            .section-padding {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .section-padding {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+        
+        /* Food Image Styles */
+        .food-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .food-image {
+            transform: scale(1.05);
+        }
+        
+        /* Category Badges */
+        .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .category-rice {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .category-soup {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .category-stew {
+            background-color: #fce7f3;
+            color: #9d174d;
+        }
+        
+        .category-protein {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        
+        .category-side {
+            background-color: #fef9c3;
+            color: #854d0e;
+        }
+        
+        .category-combo {
+            background-color: #e0e7ff;
+            color: #3730a3;
+        }
+        
+        .category-vegetable {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-white shadow-lg">
+        <div class="section-padding py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" onclick="showHomePage()" class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded-full flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-xl">BK</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Berry's Kitchen</h1>
+                        <p class="text-sm text-gray-600">Authentic Nigerian Home-Style Food</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" onclick="showHomePage()" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Home</a>
+                    <a href="#" onclick="showMenuPage()" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Menu</a>
+                    <a href="#" onclick="showCartPage()" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Cart</a>
+                    <a href="#" onclick="showCateringPage()" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">Catering</a>
+                    <a href="#" onclick="showAboutPage()" class="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200">About</a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <a href="tel:07308939327" class="flex items-center space-x-2 text-gray-700 hover:text-red-600">
+                            <i class="fas fa-phone"></i>
+                            <span>07308 939327</span>
+                        </a>
+                        
+                        <button onclick="showCartPage()" class="relative p-2">
+                            <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
+                            <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        </button>
+                        
+                        <button id="login-btn" onclick="showLoginModal()" class="btn-primary py-2 px-6">
+                            Sign In
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden mt-4 pb-4 hidden">
+                <div class="flex flex-col space-y-4">
+                    <a href="#" onclick="showHomePage()" class="text-gray-700 hover:text-red-600 py-2">Home</a>
+                    <a href="#" onclick="showMenuPage()" class="text-gray-700 hover:text-red-600 py-2">Menu</a>
+                    <a href="#" onclick="showCartPage()" class="text-gray-700 hover:text-red-600 py-2">Cart</a>
+                    <a href="#" onclick="showCateringPage()" class="text-gray-700 hover:text-red-600 py-2">Catering</a>
+                    <a href="#" onclick="showAboutPage()" class="text-gray-700 hover:text-red-600 py-2">About</a>
+                    
+                    <div class="pt-4 border-t">
+                        <a href="tel:07308939327" class="flex items-center space-x-2 text-gray-700 py-2">
+                            <i class="fas fa-phone"></i>
+                            <span>07308 939327</span>
+                        </a>
+                        <div class="flex items-center justify-between mt-2">
+                            <button onclick="showCartPage()" class="relative p-2">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span id="mobile-cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                            </button>
+                            <button id="mobile-login-btn" onclick="showLoginModal()" class="btn-primary py-2 px-4">
+                                Sign In
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+        <!-- Home Page Content will be loaded here -->
+        <div id="home-page"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6 mt-12">
+        <div class="section-padding">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Berry's Kitchen</h3>
+                    <p class="text-gray-400 mb-4">
+                        Authentic Nigerian home-style food delivered to your door in Basildon and surrounding areas.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="showHomePage()" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" onclick="showMenuPage()" class="text-gray-400 hover:text-white">Menu</a></li>
+                        <li><a href="#" onclick="showCateringPage()" class="text-gray-400 hover:text-white">Catering</a></li>
+                        <li><a href="#" onclick="showAboutPage()" class="text-gray-400 hover:text-white">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt text-gray-400"></i>
+                            <span class="text-gray-400">85 Brempsons, Basildon, SS14 2BB</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-phone text-gray-400"></i>
+                            <span class="text-gray-400">07308 939327</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                            <span class="text-gray-400">orders@berryskitchenonline.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Opening Hours</h4>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between">
+                            <span class="text-gray-400">Monday - Friday</span>
+                            <span class="text-gray-400">11:00 AM - 9:00 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-400">Saturday</span>
+                            <span class="text-gray-400">11:00 AM - 10:00 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-400">Sunday</span>
+                            <span class="text-gray-400">12:00 PM - 8:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2026 Berry's Kitchen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Sign In</h2>
+                <button onclick="hideLoginModal()" class="text-gray-500 hover:text-gray-700 text-2xl">
+                    &times;
+                </button>
+            </div>
+            
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="login-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="you@example.com" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" id="login-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="••••••••" required>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                        <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-red-600 hover:text-red-700">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="w-full btn-primary py-3 text-lg">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="mt-8 text-center">
+                <p class="text-gray-600">Don't have an account? <a href="#" onclick="showRegisterModal()" class="text-red-600 hover:text-red-700 font-medium">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Create Account</h2>
+                <button onclick="hideRegisterModal()" class="text-gray-500 hover:text-gray-700 text-2xl">
+                    &times;
+                </button>
+            </div>
+            
+            <form id="register-form" onsubmit="handleRegister(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <input type="text" id="register-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="John Doe" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="register-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="you@example.com" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <input type="tel" id="register-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="07123 456789" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" id="register-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="••••••••" required>
+                    <p class="mt-1 text-sm text-gray-500">Must be at least 8 characters</p>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="••••••••" required>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="register-terms" class="rounded border-gray-300 text-red-600 focus:ring-red-500" required>
+                    <label for="register-terms" class="ml-2 text-sm text-gray-600">
+                        I agree to the <a href="#" class="text-red-600 hover:text-red-700">Terms & Conditions</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="w-full btn-primary py-3 text-lg">
+                    Create Account
+                </button>
+            </form>
+            
+            <div class="mt-8 text-center">
+                <p class="text-gray-600">Already have an account? <a href="#" onclick="showLoginModal()" class="text-red-600 hover:text-red-700 font-medium">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h2 class="text-2xl font-bold text-gray-900">Your Cart</h2>
+                <button onclick="hideCartModal()" class="text-gray-500 hover:text-gray-700 text-2xl">
+                    &times;
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto max-h-[60vh]">
+                <div id="cart-items" class="space-y-4">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                
+                <div id="cart-empty" class="text-center py-12">
+                    <i class="fas fa-shopping-cart text-gray-300 text-6xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Your cart is empty</h3>
+                    <p class="text-gray-500 mb-8 max-w-md mx-auto">Add some delicious Nigerian dishes to get started!</p>
+                    <button onclick="showMenuPage(); hideCartModal();" class="btn-primary px-8 py-3">
+                        Browse Menu
+                    </button>
+                </div>
+            </div>
+            
+            <div id="cart-summary" class="p-6 border-t bg-gray-50 hidden">
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Subtotal</span>
+                        <span id="cart-subtotal" class="font-semibold">£0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Delivery Fee</span>
+                        <span id="cart-delivery" class="font-semibold">£3.99</span>
+                    </div>
+                    <div class="flex justify-between text-xl font-bold pt-3 border-t">
+                        <span>Total</span>
+                        <span id="cart-total">£0.00</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <button onclick="showCheckoutPage()" class="w-full btn-primary py-4 text-lg">
+                        Proceed to Checkout
+                    </button>
+                    <button onclick="hideCartModal()" class="w-full py-3 border-2 border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <script>
+        // ==================== APPLICATION STATE ====================
+        const AppState = {
+            currentUser: null,
+            cart: JSON.parse(localStorage.getItem('berrysKitchenCart')) || [],
+            menuItems: [],
+            currentPage: 'home'
+        };
+
+        // ==================== ENHANCED NIGERIAN MENU DATA ====================
+        const NigerianMenu = {
+            categories: [
+                { id: 'rice', name: 'Rice Dishes', icon: '🍚' },
+                { id: 'soup', name: 'Soups', icon: '🍲' },
+                { id: 'stew', name: 'Stews', icon: '🥘' },
+                { id: 'protein', name: 'Proteins', icon: '🍗' },
+                { id: 'side', name: 'Sides', icon: '🍌' },
+                { id: 'combo', name: 'Combos', icon: '🎯' },
+                { id: 'vegetable', name: 'Vegetables', icon: '🥗' }
+            ],
+
+            dishes: [
+                // Rice Dishes
+                {
+                    id: '1',
+                    name: 'Jollof Rice',
+                    description: 'Signature Nigerian jollof rice cooked with tomatoes, peppers, and traditional spices. Rich, smoky, and full-flavoured.',
+                    category: 'rice',
+                    price: 12.99,
+                    imageUrl: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&h=400&fit=crop',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'medium',
+                    preparationTime: 30,
+                    tags: ['signature', 'spicy', 'traditional'],
+                    ingredients: ['Rice', 'Tomatoes', 'Bell Peppers', 'Onions', 'Scotch Bonnet', 'Tomato Paste', 'Chicken Stock']
+                },
+                {
+                    id: '2',
+                    name: 'Fried Rice',
+                    description: 'Flavorful fried rice with mixed vegetables, chicken, and traditional Nigerian seasonings.',
+                    category: 'rice',
+                    price: 11.99,
+                    imageUrl: 'https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=600&h=400&fit=crop',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'mild',
+                    preparationTime: 25,
+                    tags: ['chicken', 'vegetables', 'rice'],
+                    ingredients: ['Rice', 'Mixed Vegetables', 'Chicken', 'Eggs', 'Spring Onions', 'Seasoning']
+                },
+                {
+                    id: '3',
+                    name: 'Coconut Rice',
+                    description: 'Aromatic rice cooked in rich coconut milk with carrots, peas, and sweet corn.',
+                    category: 'rice',
+                    price: 13.99,
+                    imageUrl: 'https://images.unsplash.com/photo-1563379091339-03246963d9d6?w=600&h=400&fit=crop',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'mild',
+                    preparationTime: 35,
+                    tags: ['coconut', 'sweet', 'vegetarian'],
+                    ingredients: ['Rice', 'Coconut Milk', 'Carrots', 'Peas', 'Sweet Corn', 'Onions']
+                },
+
+                // Soups (using your images)
+                {
+                    id: '4',
+                    name: 'Assorted Meat Pepper Soup',
+                    description: 'Spicy and aromatic pepper soup with assorted meats, perfect for cold days or special occasions.',
+                    category: 'soup',
+                    price: 16.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxwYXRoIGQ9Ik0xNTAgMTAwQzE1MCA2Ny45MDg2IDE3Ni45MDkgNDEgMjA5IDQxSDM5MUM0MjMuMDkxIDQxIDQ1MCA2Ny45MDg2IDQ1MCAxMDBWMzAwQzQ1MCAzMzIuMDkxIDQyMy4wOTEgMzU5IDM5MSAzNTlIMjA5QzE3Ni45MDkgMzU5IDE1MCAzMzIuMDkxIDE1MCAzMDBWMTAwWiIgZmlsbD0iI0UwQzVBNyIvPgo8Y2lyY2xlIGN4PSIzMDAiIGN5PSIyMDAiIHI9IjgwIiBmaWxsPSIjRjU4NzUzIi8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjIwMCIgcj0iNTAiIGZpbGw9IiNERDZCNTciLz4KPHBhdGggZD0iTTI1MCAxNTBMMzUwIDI1ME0zNTAgMTUwTDI1MCAyNTAiIHN0cm9rZT0iIzhCNTQzRiIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg==',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'hot',
+                    preparationTime: 45,
+                    tags: ['spicy', 'meat', 'traditional'],
+                    ingredients: ['Assorted Meat', 'Pepper Soup Spices', 'Uziza Leaves', 'Utazi Leaves', 'Seasoning']
+                },
+                {
+                    id: '5',
+                    name: 'Egusi Soup',
+                    description: 'Rich melon seed soup with assorted meats, fish, and spinach. Served with pounded yam or eba.',
+                    category: 'soup',
+                    price: 15.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjEwMCIgeT0iNTAiIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiByeD0iMjAiIGZpbGw9IiNGNEYyRTkiLz4KPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjAwIiByPSIxMjAiIGZpbGw9IiNFMEE1NDIiLz4KPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjAwIiByPSI4MCIgZmlsbD0iI0ZCRTdBNyIvPgo8Y2lyY2xlIGN4PSIyMjAiIGN5PSIxNjAiIHI9IjIwIiBmaWxsPSIjRkZGNEQ1Ii8+CjxjaXJjbGUgY3g9IjM4MCIgY3k9IjE2MCIgcj0iMjAiIGZpbGw9IiNGRkY0RDUiLz4KPGNpcmNsZSBjeD0iMjIwIiBjeT0iMjQwIiByPSIyMCIgZmlsbD0iI0ZGRjRENSIvPgo8Y2lyY2xlIGN4PSIzODAiIGN5PSIyNDAiIHI9IjIwIiBmaWxsPSIjRkZGNEQ1Ii8+CjxyZWN0IHg9IjI2MCIgeT0iMTYwIiB3aWR0aD0iODAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzg4NkM0MSIvPgo8L3N2Zz4=',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'medium',
+                    preparationTime: 50,
+                    tags: ['melon', 'traditional', 'hearty'],
+                    ingredients: ['Egusi (Melon Seeds)', 'Assorted Meat', 'Fish', 'Spinach', 'Palm Oil', 'Seasoning']
+                },
+                {
+                    id: '6',
+                    name: 'Ogbono Soup',
+                    description: 'Smooth and drawy soup made from ground ogbono seeds with assorted meats and fish.',
+                    category: 'soup',
+                    price: 14.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjEwMCIgeT0iNTAiIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiByeD0iMjAiIGZpbGw9IiNGRkU4Q0UiLz4KPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjAwIiByPSIxMjAiIGZpbGw9IiM4QjU0M0YiLz4KPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjAwIiByPSI4MCIgZmlsbD0iI0JEOTczRCIvPgo8Y2lyY2xlIGN4PSIyNDAiIGN5PSIxNjAiIHI9IjE1IiBmaWxsPSIjRkZGNEQ1Ii8+CjxjaXJjbGUgY3g9IjM2MCIgY3k9IjE2MCIgcj0iMTUiIGZpbGw9IiNGRkY0RDUiLz4KPGNpcmNsZSBjeD0iMjQwIiBjeT0iMjQwIiByPSIxNSIgZmlsbD0iI0ZGRjRENSIvPgo8Y2lyY2xlIGN4PSIzNjAiIGN5PSIyNDAiIHI9IjE1IiBmaWxsPSIjRkZGNEQ1Ii8+CjxwYXRoIGQ9Ik0yNzAgMjIwSDMzME0zMDAgMTkwVjI1MCIgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4=',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'medium',
+                    preparationTime: 40,
+                    tags: ['drawy', 'traditional', 'nutty'],
+                    ingredients: ['Ogbono Seeds', 'Assorted Meat', 'Stockfish', 'Palm Oil', 'Vegetables', 'Seasoning']
+                },
+
+                // Stews
+                {
+                    id: '7',
+                    name: 'Assorted Stew',
+                    description: 'Rich tomato-based stew with assorted meats, fish, and traditional Nigerian spices.',
+                    category: 'stew',
+                    price: 17.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjIwMCIgcj0iMTUwIiBmaWxsPSIjREQyNzIzIi8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjIwMCIgcj0iMTAwIiBmaWxsPSIjRjU0QjQxIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjE1MCIgcj0iMjAiIGZpbGw9IiNGRkZGRkYiLz4KPGNpcmNsZSBjeD0iNDAwIiBjeT0iMTUwIiByPSIyMCIgZmlsbD0iI0ZGRkZGRiIvPgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIyNTAiIHI9IjIwIiBmaWxsPSIjRkZGRkZGIi8+CjxjaXJjbGUgY3g9IjQwMCIgY3k9IjI1MCIgcj0iMjAiIGZpbGw9IiNGRkZGRkYiLz4KPHBhdGggZD0iTTI1MCAxODBIMzUwTTMwMCAxNTBWMjEwIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg==',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'medium',
+                    preparationTime: 60,
+                    tags: ['tomato', 'assorted', 'traditional'],
+                    ingredients: ['Tomatoes', 'Assorted Meat', 'Fish', 'Peppers', 'Onions', 'Spices', 'Palm Oil']
+                },
+                {
+                    id: '8',
+                    name: 'Beef Stew',
+                    description: 'Well-seasoned beef stew cooked slowly with tomatoes, peppers, and traditional spices.',
+                    category: 'stew',
+                    price: 14.99,
+                    imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&h=400&fit=crop',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'medium',
+                    preparationTime: 40,
+                    tags: ['beef', 'stew', 'protein'],
+                    ingredients: ['Beef', 'Tomatoes', 'Onions', 'Bell Peppers', 'Scotch Bonnet', 'Seasoning']
+                },
+
+                // Proteins
+                {
+                    id: '9',
+                    name: 'Grilled Chicken',
+                    description: 'Succulent chicken marinated in traditional Nigerian spices and grilled to perfection.',
+                    category: 'protein',
+                    price: 13.99,
+                    imageUrl: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=600&h=400&fit=crop',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'medium',
+                    preparationTime: 25,
+                    tags: ['grilled', 'chicken', 'protein'],
+                    ingredients: ['Chicken', 'Nigerian Spices', 'Onions', 'Peppers', 'Seasoning']
+                },
+                {
+                    id: '10',
+                    name: 'Fried Fish',
+                    description: 'Crispy fried fish seasoned with traditional Nigerian spices, served with pepper sauce.',
+                    category: 'protein',
+                    price: 15.99,
+                    imageUrl: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=600&h=400&fit=crop',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'mild',
+                    preparationTime: 20,
+                    tags: ['fish', 'fried', 'seafood'],
+                    ingredients: ['Whole Fish', 'Seasoning', 'Flour', 'Spices', 'Vegetable Oil']
+                },
+                {
+                    id: '11',
+                    name: 'Peppered Snails',
+                    description: 'Tender snails cooked in spicy pepper sauce with traditional Nigerian seasonings.',
+                    category: 'protein',
+                    price: 18.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjEwMCIgeT0iNTAiIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiByeD0iMjAiIGZpbGw9IiNGRkU4Q0UiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSIzMCIgZmlsbD0iIzg4NkM0MSIvPgo8Y2lyY2xlIGN4PSI0MDAiIGN5PSIxNTAiIHI9IjMwIiBmaWxsPSIjODg2QzQxIi8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjI1MCIgcj0iMzAiIGZpbGw9IiM4ODZDNDEiLz4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjAwIiByPSIyNSIgZmlsbD0iI0Q3QkQ4QyIvPgo8Y2lyY2xlIGN4PSIzNTAiIGN5PSIyMDAiIHI9IjI1IiBmaWxsPSIjRDdCRDhDIi8+CjxwYXRoIGQ9Ik0yMDAgMTUwTDI1MCAyMDAiIHN0cm9rZT0iI0Q3QkQ4QyIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTQwMCAxNTBMMzUwIDIwMCIgc3Ryb2tlPSIjRDdCRDhDIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMzAwIDI1MEwzNTAgMjAwIiBzdHJva2U9IiNEN0JEOEMiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg==',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'hot',
+                    preparationTime: 30,
+                    tags: ['snails', 'spicy', 'special'],
+                    ingredients: ['Snails', 'Scotch Bonnet', 'Onions', 'Bell Peppers', 'Spices', 'Seasoning']
+                },
+
+                // Sides
+                {
+                    id: '12',
+                    name: 'Fried Plantain (Dodo)',
+                    description: 'Perfectly sweet and golden fried plantain slices, crispy on the outside and soft inside.',
+                    category: 'side',
+                    price: 6.99,
+                    imageUrl: 'https://images.unsplash.com/photo-1540420828642-fca2c5c18abb?w=600&h=400&fit=crop',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'mild',
+                    preparationTime: 15,
+                    tags: ['plantain', 'sweet', 'vegetarian'],
+                    ingredients: ['Ripe Plantains', 'Vegetable Oil', 'Salt']
+                },
+                {
+                    id: '13',
+                    name: 'Moi Moi',
+                    description: 'Steamed bean pudding made from blended beans, peppers, and spices, wrapped in banana leaves.',
+                    category: 'side',
+                    price: 8.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjE1MCIgeT0iMTAwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgcng9IjIwIiBmaWxsPSIjRjVEQTg4Ii8+CjxyZWN0IHg9IjE3MCIgeT0iMTIwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjE2MCIgcng9IjE1IiBmaWxsPSIjRkZGNEQ1Ii8+CjxjaXJjbGUgY3g9IjIyMCIgY3k9IjIwMCIgcj0iMTUiIGZpbGw9IiNGRkY0RDUiLz4KPGNpcmNsZSBjeD0iMzgwIiBjeT0iMjAwIiByPSIxNSIgZmlsbD0iI0ZGRjRENSIvPgo8Y2lyY2xlIGN4PSIzMDAiIGN5PSIxNjAiIHI9IjE1IiBmaWxsPSIjRkZGNEQ1Ii8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjI0MCIgcj0iMTUiIGZpbGw9IiNGRkY0RDUiLz4KPHBhdGggZD0iTTI0MCAxNjBMMzYwIDI0ME0zNjAgMTYwTDI0MCAyNDAiIHN0cm9rZT0iI0Y1REE4OCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'mild',
+                    preparationTime: 60,
+                    tags: ['beans', 'steamed', 'vegetarian'],
+                    ingredients: ['Black-eyed Beans', 'Bell Peppers', 'Onions', 'Eggs', 'Fish', 'Seasoning']
+                },
+                {
+                    id: '14',
+                    name: 'Akara',
+                    description: 'Crispy fried bean cakes made from blended beans, onions, and peppers.',
+                    category: 'side',
+                    price: 7.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjIwMCIgcj0iNDAiIGZpbGw9IiNERDZCNTciLz4KPGNpcmNsZSBjeD0iNDAwIiBjeT0iMjAwIiByPSI0MCIgZmlsbD0iI0RENkI1NyIvPgo8Y2lyY2xlIGN4PSIzMDAiIGN5PSIxNTAiIHI9IjQwIiBmaWxsPSIjREQ2QjU3Ii8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjI1MCIgcj0iNDAiIGZpbGw9IiNERDZCNTciLz4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iMTc1IiByPSIyNSIgZmlsbD0iI0ZGRjRENSIvPgo8Y2lyY2xlIGN4PSIzNTAiIGN5PSIxNzUiIHI9IjI1IiBmaWxsPSIjRkZGNEQ1Ii8+CjxjaXJjbGUgY3g9IjI1MCIgY3k9IjIyNSIgcj0iMjUiIGZpbGw9IiNGRkY0RDUiLz4KPGNpcmNsZSBjeD0iMzUwIiBjeT0iMjI1IiByPSIyNSIgZmlsbD0iI0ZGRjRENSIvPgo8L3N2Zz4=',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'mild',
+                    preparationTime: 25,
+                    tags: ['beans', 'fried', 'vegetarian'],
+                    ingredients: ['Black-eyed Beans', 'Onions', 'Scotch Bonnet', 'Vegetable Oil', 'Seasoning']
+                },
+
+                // Combos
+                {
+                    id: '15',
+                    name: 'Jollof Rice & Plantain Combo',
+                    description: 'Our signature jollof rice served with perfectly fried plantain slices.',
+                    category: 'combo',
+                    price: 16.99,
+                    imageUrl: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=400&fit=crop',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'medium',
+                    preparationTime: 35,
+                    tags: ['combo', 'popular', 'best-seller'],
+                    ingredients: ['Jollof Rice', 'Fried Plantain']
+                },
+                {
+                    id: '16',
+                    name: 'Pounded Yam & Egusi Soup',
+                    description: 'Traditional pounded yam served with rich egusi (melon) soup and assorted meats.',
+                    category: 'combo',
+                    price: 18.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjEwMCIgeT0iMTAwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgcng9IjIwIiBmaWxsPSIjRkZGNEQ1Ii8+CjxyZWN0IHg9IjEyMCIgeT0iMTIwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjMyMCIgeT0iMTIwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjRTRBNTQyIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjIwMCIgcj0iMjAiIGZpbGw9IiNFMEE1NDIiLz4KPGNpcmNsZSBjeD0iNDAwIiBjeT0iMjAwIiByPSIyMCIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBkPSJNMjAwIDEyMEwyMDAgMjgwTTQwMCAxMjBMNDAwIDI4MCIgc3Ryb2tlPSIjODg2QzQxIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4=',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'medium',
+                    preparationTime: 50,
+                    tags: ['combo', 'traditional', 'hearty'],
+                    ingredients: ['Pounded Yam', 'Egusi Soup', 'Assorted Meat']
+                },
+                {
+                    id: '17',
+                    name: 'Beans & Plantain',
+                    description: 'Traditional Nigerian beans served with sweet fried plantain.',
+                    category: 'combo',
+                    price: 14.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjE1MCIgeT0iMTAwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgcng9IjIwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjE3MCIgeT0iMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjREQ2QjU3Ii8+CjxyZWN0IHg9IjMxMCIgeT0iMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjRkZGNEQ1Ii8+CjxjaXJjbGUgY3g9IjIzMCIgY3k9IjIwMCIgcj0iMTUiIGZpbGw9IiNGRkY0RDUiLz4KPGNpcmNsZSBjeD0iMzcwIiBjeT0iMjAwIiByPSIxNSIgZmlsbD0iI0RENkI1NyIvPgo8cGF0aCBkPSJNMjMwIDEyMEwyMzAgMjgwTTM3MCAxMjBMMzcwIDI4MCIgc3Ryb2tlPSIjODg2QzQxIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4=',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'mild',
+                    preparationTime: 40,
+                    tags: ['beans', 'plantain', 'vegetarian'],
+                    ingredients: ['Nigerian Beans', 'Fried Plantain', 'Palm Oil', 'Seasoning']
+                },
+
+                // Vegetables
+                {
+                    id: '18',
+                    name: 'Assorted Vegetables',
+                    description: 'Fresh mixed vegetables sautéed with traditional Nigerian spices and seasonings.',
+                    category: 'vegetable',
+                    price: 9.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjE1MCIgeT0iMTAwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgcng9IjIwIiBmaWxsPSIjRkZGRkZGIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjE2MCIgcj0iMzAiIGZpbGw9IiM4QjU0M0YiLz4KPGNpcmNsZSBjeD0iNDAwIiBjeT0iMTYwIiByPSIzMCIgZmlsbD0iIzhCNTQzRiIvPgo8Y2lyY2xlIGN4PSIzMDAiIGN5PSIyNDAiIHI9IjMwIiBmaWxsPSIjOEI1NDNGIi8+CjxjaXJjbGUgY3g9IjI1MCIgY3k9IjIwMCIgcj0iMjUiIGZpbGw9IiM1N0JCNDEiLz4KPGNpcmNsZSBjeD0iMzUwIiBjeT0iMjAwIiByPSIyNSIgZmlsbD0iIzU3QkI0MSIvPgo8cGF0aCBkPSJNMjAwIDE2MEwyNTAgMjAwTTQwMCAxNjBMMzUwIDIwME0zMDAgMjQwTDM1MCAyMDAiIHN0cm9rZT0iIzU3QkI0MSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+',
+                    isAvailable: true,
+                    isFeatured: false,
+                    spiceLevel: 'mild',
+                    preparationTime: 15,
+                    tags: ['vegetables', 'healthy', 'vegetarian'],
+                    ingredients: ['Mixed Vegetables', 'Bell Peppers', 'Onions', 'Carrots', 'Green Beans', 'Seasoning']
+                },
+
+                // Chef Specials
+                {
+                    id: '19',
+                    name: 'Chef Special Pepper Soup',
+                    description: 'Executive chef special - extra spicy pepper soup with premium assorted meats.',
+                    category: 'soup',
+                    price: 21.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjEwMCIgeT0iNTAiIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiByeD0iMjAiIGZpbGw9IiNGNEYyRTkiLz4KPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjAwIiByPSIxMjAiIGZpbGw9IiNERDZCNTciLz4KPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjAwIiByPSI4MCIgZmlsbD0iI0Y1ODc1MyIvPgo8cGF0aCBkPSJNMjYwIDE0MEwzNDAgMjYwTTM0MCAxNDBMMjYwIDI2MCIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIyODAiIGN5PSIyMDAiIHI9IjE1IiBmaWxsPSIjRkZGRkZGIi8+CjxjaXJjbGUgY3g9IjMyMCIgY3k9IjIwMCIgcj0iMTUiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'very_hot',
+                    preparationTime: 50,
+                    tags: ['chef-special', 'spicy', 'premium'],
+                    ingredients: ['Premium Assorted Meat', 'Special Pepper Blend', 'Traditional Herbs', 'Premium Seasoning']
+                },
+                {
+                    id: '20',
+                    name: 'Chef Signature Stew',
+                    description: 'Chef signature stew with premium ingredients and secret family recipe.',
+                    category: 'stew',
+                    price: 24.99,
+                    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+CjxyZWN0IHg9IjE1MCIgeT0iMTAwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgcng9IjIwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjE3MCIgeT0iMTIwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjE2MCIgcng9IjE1IiBmaWxsPSIjREQyNzIzIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjIwMCIgcj0iMjAiIGZpbGw9IiNGRkZGRkYiLz4KPGNpcmNsZSBjeD0iNDAwIiBjeT0iMjAwIiByPSIyMCIgZmlsbD0iI0ZGRkZGRiIvPgo8Y2lyY2xlIGN4PSIzMDAiIGN5PSIxNjAiIHI9IjIwIiBmaWxsPSIjRkZGRkZGIi8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjI0MCIgcj0iMjAiIGZpbGw9IiNGRkZGRkYiLz4KPHBhdGggZD0iTTIwMCAxMjBMMjAwIDI4ME00MDAgMTIwTDQwMCAyODAiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+',
+                    isAvailable: true,
+                    isFeatured: true,
+                    spiceLevel: 'medium',
+                    preparationTime: 70,
+                    tags: ['chef-special', 'premium', 'signature'],
+                    ingredients: ['Premium Tomatoes', 'Special Pepper Blend', 'Secret Spices', 'Premium Assorted Meat', 'Traditional Ingredients']
+                }
+            ]
+        };
+
+        // ==================== MOCK DATABASE ====================
+        const MockDatabase = {
+            users: JSON.parse(localStorage.getItem('berrysKitchenUsers')) || [
+                {
+                    id: '1',
+                    name: 'Demo User',
+                    email: 'demo@example.com',
+                    password: 'demo123',
+                    phone: '07123456789',
+                    role: 'customer',
+                    createdAt: new Date().toISOString()
+                }
+            ],
+            
+            orders: JSON.parse(localStorage.getItem('berrysKitchenOrders')) || [],
+            
+            saveUsers() {
+                localStorage.setItem('berrysKitchenUsers', JSON.stringify(this.users));
+            },
+            
+            saveOrders() {
+                localStorage.setItem('berrysKitchenOrders', JSON.stringify(this.orders));
+            }
+        };
+
+        // ==================== MOCK API ====================
+        const MockAPI = {
+            // Auth endpoints
+            async login(email, password) {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const user = MockDatabase.users.find(u => 
+                    u.email === email && u.password === password
+                );
+                
+                if (!user) {
+                    throw new Error('Invalid email or password');
+                }
+                
+                const { password: _, ...userWithoutPassword } = user;
+                return { user: userWithoutPassword, token: 'mock-jwt-token' };
+            },
+            
+            async register(userData) {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const existingUser = MockDatabase.users.find(u => u.email === userData.email);
+                if (existingUser) {
+                    throw new Error('User with this email already exists');
+                }
+                
+                const newUser = {
+                    id: Date.now().toString(),
+                    ...userData,
+                    role: 'customer',
+                    createdAt: new Date().toISOString()
+                };
+                
+                MockDatabase.users.push(newUser);
+                MockDatabase.saveUsers();
+                
+                const { password, ...userWithoutPassword } = newUser;
+                return { user: userWithoutPassword, token: 'mock-jwt-token' };
+            },
+            
+            // Menu endpoints
+            async getMenu() {
+                await new Promise(resolve => setTimeout(resolve, 300));
+                return NigerianMenu.dishes;
+            },
+            
+            async getFeaturedDishes() {
+                await new Promise(resolve => setTimeout(resolve, 300));
+                return NigerianMenu.dishes.filter(item => item.isFeatured);
+            },
+            
+            // Order endpoints
+            async createOrder(orderData) {
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                const newOrder = {
+                    id: 'ORD' + Date.now().toString().slice(-6),
+                    ...orderData,
+                    status: 'pending',
+                    paymentStatus: 'pending',
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+                
+                MockDatabase.orders.push(newOrder);
+                MockDatabase.saveOrders();
+                
+                return newOrder;
+            }
+        };
+
+        // ==================== UI UTILITIES ====================
+        const UIUtils = {
+            showToast(message, type = 'info', duration = 4000) {
+                const toast = document.createElement('div');
+                toast.className = `bg-${type === 'success' ? 'green' : type === 'error' ? 'red' : 'gray'}-500 text-white px-6 py-4 rounded-lg shadow-lg transform transition-transform duration-300 translate-x-full`;
+                toast.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} mr-3"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                const container = document.getElementById('toast-container');
+                container.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.remove('translate-x-full');
+                    toast.classList.add('translate-x-0');
+                }, 10);
+                
+                setTimeout(() => {
+                    toast.classList.remove('translate-x-0');
+                    toast.classList.add('translate-x-full');
+                    setTimeout(() => toast.remove(), 300);
+                }, duration);
+            },
+            
+            showLoading(selector) {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.innerHTML = `
+                        <div class="flex justify-center items-center py-20">
+                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+                        </div>
+                    `;
+                }
+            },
+            
+            hideModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            },
+            
+            showModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('hidden');
+                }
+            }
+        };
+
+        // ==================== CART MANAGEMENT ====================
+        const CartManager = {
+            addToCart(item, quantity = 1) {
+                const existingItem = AppState.cart.find(cartItem => cartItem.id === item.id);
+                
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    AppState.cart.push({
+                        ...item,
+                        quantity: quantity
+                    });
+                }
+                
+                this.saveCart();
+                this.updateCartUI();
+                UIUtils.showToast(`✓ ${item.name} added to cart!`, 'success');
+            },
+            
+            removeFromCart(itemId) {
+                AppState.cart = AppState.cart.filter(item => item.id !== itemId);
+                this.saveCart();
+                this.updateCartUI();
+                UIUtils.showToast('Item removed from cart', 'info');
+            },
+            
+            updateQuantity(itemId, quantity) {
+                const item = AppState.cart.find(item => item.id === itemId);
+                if (item) {
+                    if (quantity < 1) {
+                        this.removeFromCart(itemId);
+                    } else {
+                        item.quantity = quantity;
+                        this.saveCart();
+                        this.updateCartUI();
+                    }
+                }
+            },
+            
+            clearCart() {
+                AppState.cart = [];
+                this.saveCart();
+                this.updateCartUI();
+            },
+            
+            getCartTotal() {
+                return AppState.cart.reduce((total, item) => {
+                    return total + (item.price * item.quantity);
+                }, 0);
+            },
+            
+            saveCart() {
+                localStorage.setItem('berrysKitchenCart', JSON.stringify(AppState.cart));
+            },
+            
+            updateCartUI() {
+                const cartCount = AppState.cart.reduce((sum, item) => sum + item.quantity, 0);
+                document.getElementById('cart-count').textContent = cartCount;
+                document.getElementById('mobile-cart-count').textContent = cartCount;
+                
+                if (document.getElementById('cart-modal') && !document.getElementById('cart-modal').classList.contains('hidden')) {
+                    this.renderCartItems();
+                }
+            },
+            
+            renderCartItems() {
+                const cartItemsContainer = document.getElementById('cart-items');
+                const cartEmpty = document.getElementById('cart-empty');
+                const cartSummary = document.getElementById('cart-summary');
+                
+                if (AppState.cart.length === 0) {
+                    cartEmpty.classList.remove('hidden');
+                    cartSummary.classList.add('hidden');
+                    cartItemsContainer.innerHTML = '';
+                    return;
+                }
+                
+                cartEmpty.classList.add('hidden');
+                cartSummary.classList.remove('hidden');
+                
+                cartItemsContainer.innerHTML = AppState.cart.map(item => `
+                    <div class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:border-red-200 transition-colors">
+                        <div class="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-lg overflow-hidden">
+                            <img src="${item.imageUrl}" alt="${item.name}" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="ml-4 flex-grow">
+                            <h4 class="font-semibold text-gray-900">${item.name}</h4>
+                            <p class="text-sm text-gray-600">£${item.price.toFixed(2)} each</p>
+                            <span class="inline-block px-2 py-1 text-xs font-medium rounded-full mt-1 ${this.getCategoryClass(item.category)}">
+                                ${item.category}
+                            </span>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center border border-gray-300 rounded-lg">
+                                <button onclick="CartManager.updateQuantity('${item.id}', ${item.quantity - 1})" 
+                                        class="px-3 py-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-l-lg">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="px-3 py-1 font-medium">${item.quantity}</span>
+                                <button onclick="CartManager.updateQuantity('${item.id}', ${item.quantity + 1})" 
+                                        class="px-3 py-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-r-lg">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="text-right min-w-24">
+                                <div class="font-semibold text-lg">£${(item.price * item.quantity).toFixed(2)}</div>
+                                <button onclick="CartManager.removeFromCart('${item.id}')" 
+                                        class="text-sm text-red-600 hover:text-red-700 mt-1 flex items-center">
+                                    <i class="fas fa-trash-alt mr-1"></i>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                const subtotal = this.getCartTotal();
+                const deliveryFee = 3.99;
+                const total = subtotal + deliveryFee;
+                
+                document.getElementById('cart-subtotal').textContent = `£${subtotal.toFixed(2)}`;
+                document.getElementById('cart-total').textContent = `£${total.toFixed(2)}`;
+            },
+            
+            getCategoryClass(category) {
+                const classes = {
+                    'rice': 'category-rice',
+                    'soup': 'category-soup',
+                    'stew': 'category-stew',
+                    'protein': 'category-protein',
+                    'side': 'category-side',
+                    'combo': 'category-combo',
+                    'vegetable': 'category-vegetable'
+                };
+                return classes[category] || 'bg-gray-100 text-gray-800';
+            }
+        };
+
+        // ==================== PAGE RENDERING ====================
+        const PageRenderer = {
+            async showHomePage() {
+                AppState.currentPage = 'home';
+                document.getElementById('main-content').innerHTML = `
+                    <div id="home-page" class="animate-fade-in">
+                        <!-- Hero Section -->
+                        <section class="relative min-h-[90vh] flex items-center bg-gradient-to-r from-gray-900 to-gray-800 overflow-hidden">
+                            <div class="absolute inset-0 z-0 bg-cover bg-center opacity-20"
+                                 style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1920')">
+                            </div>
+                            
+                            <div class="relative z-10 section-padding py-20">
+                                <div class="max-w-3xl">
+                                    <div class="animate-fade-in">
+                                        <span class="inline-block px-4 py-2 bg-red-600 text-white rounded-full text-sm font-semibold mb-6">
+                                            Authentic Nigerian Home-Style Food
+                                        </span>
+                                        
+                                        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                                            Taste the Flavors of 
+                                            <span class="text-red-400"> Nigeria</span>
+                                        </h1>
+                                        
+                                        <p class="text-xl text-gray-200 mb-10 max-w-2xl">
+                                            Bold flavors, generous portions, and food that feels like home. 
+                                            Every dish cooked fresh to order using quality ingredients and proper seasoning.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="animate-fade-in animate-delay-200 flex flex-col sm:flex-row gap-4 mb-16">
+                                        <button onclick="showMenuPage()" class="btn-primary inline-flex items-center justify-center text-lg py-4 px-8">
+                                            Order Now
+                                            <i class="fas fa-arrow-right ml-3"></i>
+                                        </button>
+                                        
+                                        <button onclick="showCateringPage()" class="bg-white text-gray-900 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-300 border-2 border-white">
+                                            Book Catering
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                                            <div class="flex items-center space-x-3 mb-3">
+                                                <i class="fas fa-clock text-red-400 text-2xl"></i>
+                                                <h3 class="text-white font-semibold text-lg">Open Daily</h3>
+                                            </div>
+                                            <p class="text-gray-200">Closes 9:00 PM</p>
+                                        </div>
+                                        
+                                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                                            <div class="flex items-center space-x-3 mb-3">
+                                                <i class="fas fa-map-marker-alt text-red-400 text-2xl"></i>
+                                                <h3 class="text-white font-semibold text-lg">Location</h3>
+                                            </div>
+                                            <p class="text-gray-200">85 Brempsons, Basildon, SS14 2BB</p>
+                                        </div>
+                                        
+                                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                                            <div class="flex items-center space-x-3 mb-3">
+                                                <i class="fas fa-phone text-red-400 text-2xl"></i>
+                                                <h3 class="text-white font-semibold text-lg">Call Us</h3>
+                                            </div>
+                                            <p class="text-gray-200">07308 939327</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- Featured Dishes -->
+                        <section class="section-padding py-20 bg-white">
+                            <div class="text-center mb-16">
+                                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                                    Popular Dishes
+                                </h2>
+                                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                                    Customer favorites from our authentic Nigerian menu
+                                </p>
+                            </div>
+                            
+                            <div id="featured-dishes" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                <!-- Featured dishes will be loaded here -->
+                            </div>
+                            
+                            <div class="text-center mt-12">
+                                <button onclick="showMenuPage()" class="btn-primary py-3 px-8 text-lg">
+                                    View Full Menu
+                                </button>
+                            </div>
+                        </section>
+                        
+                        <!-- Services -->
+                        <section class="section-padding py-20 bg-gradient-to-r from-red-50 to-orange-50">
+                            <div class="text-center mb-16">
+                                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                                    Our Services
+                                </h2>
+                                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                                    Multiple ways to enjoy our authentic Nigerian food
+                                </p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div class="card p-8 text-center hover:border-red-200 transition-all">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <i class="fas fa-utensils text-red-600 text-3xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Takeaway</h3>
+                                    <p class="text-gray-600 mb-6">
+                                        Order online or by phone and collect fresh, hot meals from our kitchen
+                                    </p>
+                                    <button onclick="showMenuPage()" class="text-red-600 font-semibold hover:text-red-700 text-lg">
+                                        Order Now →
+                                    </button>
+                                </div>
+                                
+                                <div class="card p-8 text-center hover:border-red-200 transition-all">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <i class="fas fa-truck text-red-600 text-3xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Delivery</h3>
+                                    <p class="text-gray-600 mb-6">
+                                        Get our authentic Nigerian dishes delivered to your door in Basildon
+                                    </p>
+                                    <button onclick="showMenuPage()" class="text-red-600 font-semibold hover:text-red-700 text-lg">
+                                        Order Delivery →
+                                    </button>
+                                </div>
+                                
+                                <div class="card p-8 text-center hover:border-red-200 transition-all">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <i class="fas fa-users text-red-600 text-3xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Catering</h3>
+                                    <p class="text-gray-600 mb-6">
+                                        Perfect for events, parties, and gatherings. Bulk orders available
+                                    </p>
+                                    <button onclick="showCateringPage()" class="text-red-600 font-semibold hover:text-red-700 text-lg">
+                                        Book Catering →
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- CTA Section -->
+                        <section class="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white py-20">
+                            <div class="section-padding text-center">
+                                <h2 class="text-4xl font-bold mb-6">
+                                    Ready to Taste Authentic Nigerian Food?
+                                </h2>
+                                <p class="text-xl mb-10 max-w-2xl mx-auto">
+                                    Order online now or call us at 07308 939327
+                                </p>
+                                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                    <button onclick="showMenuPage()" 
+                                            class="bg-white text-red-600 hover:bg-gray-100 font-bold py-4 px-10 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                        View Full Menu
+                                    </button>
+                                    <a href="tel:07308939327"
+                                       class="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-4 px-10 rounded-lg text-lg transition-all duration-300 shadow-lg">
+                                        Call to Order
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                `;
+                
+                await this.loadFeaturedDishes();
+            },
+            
+            async showMenuPage() {
+                AppState.currentPage = 'menu';
+                UIUtils.showLoading('#main-content');
+                
+                setTimeout(async () => {
+                    const menuItems = await MockAPI.getMenu();
+                    AppState.menuItems = menuItems;
+                    
+                    document.getElementById('main-content').innerHTML = `
+                        <div id="menu-page" class="animate-fade-in">
+                            <!-- Hero Section -->
+                            <div class="relative bg-gradient-to-r from-red-700 to-red-900 text-white py-20 overflow-hidden">
+                                <div class="absolute inset-0 opacity-10">
+                                    <div class="absolute inset-0 bg-black"></div>
+                                </div>
+                                <div class="relative z-10 section-padding">
+                                    <h1 class="text-5xl md:text-6xl font-bold mb-6">Our Menu</h1>
+                                    <p class="text-xl max-w-3xl">
+                                        Discover our authentic Nigerian dishes, each cooked fresh to order with traditional recipes and bold flavors
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Menu Filter -->
+                            <div class="sticky top-20 z-40 bg-white shadow-lg">
+                                <div class="section-padding py-6">
+                                    <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                                        <div class="relative w-full md:w-96">
+                                            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                            <input type="text" 
+                                                   id="menu-search" 
+                                                   placeholder="Search dishes..." 
+                                                   class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                                   oninput="PageRenderer.filterMenu()">
+                                        </div>
+                                        
+                                        <div class="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0">
+                                            <span class="flex items-center text-gray-600 whitespace-nowrap font-medium">
+                                                <i class="fas fa-filter mr-2"></i>
+                                                Filter:
+                                            </span>
+                                            <div class="flex space-x-2">
+                                                ${NigerianMenu.categories.map(cat => `
+                                                    <button onclick="PageRenderer.setMenuFilter('${cat.id}')" 
+                                                            class="px-4 py-2 rounded-full whitespace-nowrap transition-all border ${cat.id === 'all' ? 'bg-red-600 text-white border-red-600' : 'bg-white text-gray-700 border-gray-300 hover:border-red-400'}">
+                                                        ${cat.icon} ${cat.name}
+                                                    </button>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Menu Items -->
+                            <div class="section-padding py-12 bg-gray-50">
+                                <div id="menu-items-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    <!-- Menu items will be loaded here -->
+                                </div>
+                                
+                                <div id="no-dishes-found" class="text-center py-20 hidden">
+                                    <i class="fas fa-search text-gray-300 text-6xl mb-6"></i>
+                                    <h3 class="text-3xl font-semibold text-gray-700 mb-4">
+                                        No dishes found
+                                    </h3>
+                                    <p class="text-gray-500 mb-8 max-w-md mx-auto">
+                                        Try adjusting your search or filter
+                                    </p>
+                                    <button onclick="PageRenderer.setMenuFilter('all'); document.getElementById('menu-search').value = ''; PageRenderer.filterMenu();" 
+                                            class="btn-primary inline-flex items-center py-3 px-8 text-lg">
+                                        <i class="fas fa-redo mr-2"></i>
+                                        Clear Filters
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Special Offers -->
+                            <div class="bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700 text-white py-16">
+                                <div class="section-padding text-center">
+                                    <div class="inline-block px-4 py-1 bg-white/20 rounded-full text-sm font-semibold mb-4">
+                                        Special Offer
+                                    </div>
+                                    <h2 class="text-4xl font-bold mb-4">Combo Deals</h2>
+                                    <p class="text-xl mb-8 max-w-2xl mx-auto">
+                                        Save up to 15% with our specially curated Nigerian food combos
+                                    </p>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                                            <h3 class="text-xl font-bold mb-2">Jollof Rice & Plantain</h3>
+                                            <div class="flex items-center justify-center space-x-2 mb-4">
+                                                <span class="text-2xl font-bold">£16.99</span>
+                                                <span class="text-sm line-through opacity-75">£19.98</span>
+                                                <span class="px-2 py-1 bg-green-500 rounded text-xs font-bold">Save 15%</span>
+                                            </div>
+                                            <button onclick="PageRenderer.addComboToCart('jollof-combo')" 
+                                                    class="w-full bg-white text-yellow-600 hover:bg-gray-100 font-semibold py-3 rounded-lg transition-colors">
+                                                Add Combo
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                                            <h3 class="text-xl font-bold mb-2">Pounded Yam & Soup</h3>
+                                            <div class="flex items-center justify-center space-x-2 mb-4">
+                                                <span class="text-2xl font-bold">£18.99</span>
+                                                <span class="text-sm line-through opacity-75">£22.98</span>
+                                                <span class="px-2 py-1 bg-green-500 rounded text-xs font-bold">Save 17%</span>
+                                            </div>
+                                            <button onclick="PageRenderer.addComboToCart('pounded-yam-combo')" 
+                                                    class="w-full bg-white text-yellow-600 hover:bg-gray-100 font-semibold py-3 rounded-lg transition-colors">
+                                                Add Combo
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                                            <h3 class="text-xl font-bold mb-2">Beans & Plantain</h3>
+                                            <div class="flex items-center justify-center space-x-2 mb-4">
+                                                <span class="text-2xl font-bold">£14.99</span>
+                                                <span class="text-sm line-through opacity-75">£17.98</span>
+                                                <span class="px-2 py-1 bg-green-500 rounded text-xs font-bold">Save 17%</span>
+                                            </div>
+                                            <button onclick="PageRenderer.addComboToCart('beans-combo')" 
+                                                    class="w-full bg-white text-yellow-600 hover:bg-gray-100 font-semibold py-3 rounded-lg transition-colors">
+                                                Add Combo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Set initial filter to all
+                    this.setMenuFilter('all');
+                }, 300);
+            },
+            
+            async loadFeaturedDishes() {
+                try {
+                    const featuredDishes = await MockAPI.getFeaturedDishes();
+                    const container = document.getElementById('featured-dishes');
+                    
+                    if (container) {
+                        container.innerHTML = featuredDishes.slice(0, 4).map(dish => `
+                            <div class="card overflow-hidden group hover:shadow-xl transition-all duration-300 border border-gray-200">
+                                <div class="relative h-48 overflow-hidden">
+                                    <img src="${dish.imageUrl}" 
+                                         alt="${dish.name}" 
+                                         class="food-image">
+                                    ${dish.isFeatured ? `
+                                        <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                            <i class="fas fa-star mr-1"></i> Featured
+                                        </div>
+                                    ` : ''}
+                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-white font-bold text-lg">
+                                                £${dish.price.toFixed(2)}
+                                            </span>
+                                            <div class="flex items-center text-yellow-400">
+                                                <i class="fas fa-star"></i>
+                                                <span class="text-white ml-1 text-sm">4.8</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-6">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h3 class="text-xl font-bold text-gray-900">${dish.name}</h3>
+                                        <span class="text-sm text-gray-500">
+                                            <i class="fas fa-clock mr-1"></i>${dish.preparationTime} min
+                                        </span>
+                                    </div>
+                                    
+                                    <p class="text-gray-600 mb-4 text-sm line-clamp-2">${dish.description}</p>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <span class="inline-block px-3 py-1 ${CartManager.getCategoryClass(dish.category)} text-xs font-medium rounded-full">
+                                            ${dish.category.replace('_', ' ')}
+                                        </span>
+                                        
+                                        <button onclick="CartManager.addToCart(${JSON.stringify(dish).replace(/"/g, '&quot;')})" 
+                                                class="btn-primary py-2 px-4 text-sm">
+                                            <i class="fas fa-plus mr-2"></i>
+                                            Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                } catch (error) {
+                    console.error('Error loading featured dishes:', error);
+                }
+            },
+            
+            renderMenuItems(filteredItems = null) {
+                const items = filteredItems || AppState.menuItems;
+                const container = document.getElementById('menu-items-container');
+                const noItemsMessage = document.getElementById('no-dishes-found');
+                
+                if (!container) return;
+                
+                if (items.length === 0) {
+                    container.innerHTML = '';
+                    if (noItemsMessage) noItemsMessage.classList.remove('hidden');
+                    return;
+                }
+                
+                if (noItemsMessage) noItemsMessage.classList.add('hidden');
+                
+                container.innerHTML = items.map(dish => `
+                    <div class="card overflow-hidden group hover:shadow-xl transition-all duration-300 border border-gray-200">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${dish.imageUrl}" 
+                                 alt="${dish.name}" 
+                                 class="food-image">
+                            ${dish.isFeatured ? `
+                                <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                    <i class="fas fa-crown mr-1"></i> Featured
+                                </div>
+                            ` : ''}
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-white font-bold text-xl">
+                                        £${dish.price.toFixed(2)}
+                                    </span>
+                                    <div class="flex items-center">
+                                        ${dish.spiceLevel === 'hot' || dish.spiceLevel === 'very_hot' ? `
+                                            <span class="text-red-400 text-sm font-medium">
+                                                <i class="fas fa-pepper-hot mr-1"></i>${dish.spiceLevel}
+                                            </span>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-bold text-gray-900">${dish.name}</h3>
+                                <span class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-1"></i>${dish.preparationTime} min
+                                </span>
+                            </div>
+                            
+                            <p class="text-gray-600 mb-4 text-sm">${dish.description}</p>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="inline-block px-3 py-1 ${CartManager.getCategoryClass(dish.category)} text-xs font-medium rounded-full">
+                                        ${dish.category.replace('_', ' ')}
+                                    </span>
+                                    <span class="text-xs text-gray-500">
+                                        ${dish.tags.slice(0, 2).map(tag => `#${tag}`).join(' ')}
+                                    </span>
+                                </div>
+                                
+                                <button onclick="CartManager.addToCart(${JSON.stringify(dish).replace(/"/g, '&quot;')})" 
+                                        class="btn-primary py-2 px-4 text-sm">
+                                    <i class="fas fa-shopping-cart mr-2"></i>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            },
+            
+            filterMenu() {
+                const searchTerm = document.getElementById('menu-search')?.value.toLowerCase() || '';
+                const activeButton = document.querySelector('[onclick*="setMenuFilter"]:not([class*="border-gray-300"])');
+                const currentFilter = activeButton ? activeButton.getAttribute('onclick').match(/'([^']+)'/)[1] : 'all';
+                
+                let filtered = AppState.menuItems;
+                
+                // Apply category filter
+                if (currentFilter !== 'all') {
+                    filtered = filtered.filter(item => item.category === currentFilter);
+                }
+                
+                // Apply search filter
+                if (searchTerm) {
+                    filtered = filtered.filter(item =>
+                        item.name.toLowerCase().includes(searchTerm) ||
+                        item.description.toLowerCase().includes(searchTerm) ||
+                        item.tags?.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+                        item.ingredients?.some(ing => ing.toLowerCase().includes(searchTerm))
+                    );
+                }
+                
+                this.renderMenuItems(filtered);
+                
+                // Show/hide no results message
+                const noItemsMessage = document.getElementById('no-dishes-found');
+                if (noItemsMessage) {
+                    if (filtered.length === 0) {
+                        noItemsMessage.classList.remove('hidden');
+                    } else {
+                        noItemsMessage.classList.add('hidden');
+                    }
+                }
+            },
+            
+            setMenuFilter(category) {
+                // Update button styles
+                document.querySelectorAll('[onclick*="setMenuFilter"]').forEach(btn => {
+                    btn.classList.remove('bg-red-600', 'text-white', 'border-red-600');
+                    btn.classList.add('bg-white', 'text-gray-700', 'border-gray-300', 'hover:border-red-400');
+                });
+                
+                const activeBtn = document.querySelector(`[onclick*="setMenuFilter('${category}')"]`);
+                if (activeBtn) {
+                    activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-300', 'hover:border-red-400');
+                    activeBtn.classList.add('bg-red-600', 'text-white', 'border-red-600');
+                }
+                
+                this.filterMenu();
+            },
+            
+            addComboToCart(comboType) {
+                let combo;
+                
+                switch(comboType) {
+                    case 'jollof-combo':
+                        combo = {
+                            id: 'combo-1',
+                            name: 'Jollof Rice & Plantain Combo',
+                            description: 'Signature jollof rice with perfectly fried plantain slices',
+                            category: 'combo',
+                            price: 16.99,
+                            imageUrl: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop',
+                            isAvailable: true
+                        };
+                        break;
+                    case 'pounded-yam-combo':
+                        combo = {
+                            id: 'combo-2',
+                            name: 'Pounded Yam & Egusi Soup Combo',
+                            description: 'Traditional pounded yam with rich egusi soup',
+                            category: 'combo',
+                            price: 18.99,
+                            imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+Cjwvc3ZnPg==',
+                            isAvailable: true
+                        };
+                        break;
+                    case 'beans-combo':
+                        combo = {
+                            id: 'combo-3',
+                            name: 'Beans & Plantain Combo',
+                            description: 'Traditional Nigerian beans with sweet fried plantain',
+                            category: 'combo',
+                            price: 14.99,
+                            imageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRkZFRkVDIi8+Cjwvc3ZnPg==',
+                            isAvailable: true
+                        };
+                        break;
+                }
+                
+                if (combo) {
+                    CartManager.addToCart(combo);
+                    UIUtils.showToast(`✓ ${combo.name} added to cart! Save on combo deal!`, 'success');
+                }
+            }
+        };
+
+        // ==================== AUTHENTICATION ====================
+        const AuthManager = {
+            async handleLogin(event) {
+                event.preventDefault();
+                
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                try {
+                    const { user, token } = await MockAPI.login(email, password);
+                    AppState.currentUser = user;
+                    
+                    // Update UI
+                    document.getElementById('login-btn').textContent = user.name;
+                    document.getElementById('mobile-login-btn').textContent = user.name;
+                    
+                    // Hide modal
+                    UIUtils.hideModal('login-modal');
+                    
+                    // Show success message
+                    UIUtils.showToast(`✓ Welcome back, ${user.name}!`, 'success');
+                } catch (error) {
+                    UIUtils.showToast(error.message, 'error');
+                }
+            },
+            
+            async handleRegister(event) {
+                event.preventDefault();
+                
+                const userData = {
+                    name: document.getElementById('register-name').value,
+                    email: document.getElementById('register-email').value,
+                    phone: document.getElementById('register-phone').value,
+                    password: document.getElementById('register-password').value
+                };
+                
+                const confirmPassword = document.getElementById('register-confirm-password').value;
+                
+                if (userData.password !== confirmPassword) {
+                    UIUtils.showToast('Passwords do not match', 'error');
+                    return;
+                }
+                
+                if (userData.password.length < 8) {
+                    UIUtils.showToast('Password must be at least 8 characters', 'error');
+                    return;
+                }
+                
+                try {
+                    const { user, token } = await MockAPI.register(userData);
+                    AppState.currentUser = user;
+                    
+                    // Update UI
+                    document.getElementById('login-btn').textContent = user.name;
+                    document.getElementById('mobile-login-btn').textContent = user.name;
+                    
+                    // Hide modal
+                    UIUtils.hideModal('register-modal');
+                    
+                    // Show success message
+                    UIUtils.showToast(`✓ Account created successfully! Welcome, ${user.name}!`, 'success');
+                } catch (error) {
+                    UIUtils.showToast(error.message, 'error');
+                }
+            }
+        };
+
+        // ==================== EVENT LISTENERS ====================
+        function setupEventListeners() {
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const menu = document.getElementById('mobile-menu');
+                const menuBtn = document.getElementById('mobile-menu-btn');
+                
+                if (!menu.classList.contains('hidden') && 
+                    !menu.contains(event.target) && 
+                    !menuBtn.contains(event.target)) {
+                    menu.classList.add('hidden');
+                }
+            });
+        }
+
+        // ==================== GLOBAL FUNCTIONS ====================
+        window.showHomePage = () => PageRenderer.showHomePage();
+        window.showMenuPage = () => PageRenderer.showMenuPage();
+        window.showCartPage = () => {
+            CartManager.renderCartItems();
+            UIUtils.showModal('cart-modal');
+        };
+        window.showCateringPage = () => {
+            // Simple catering page for now
+            document.getElementById('main-content').innerHTML = `
+                <div class="section-padding py-20">
+                    <h1 class="text-4xl font-bold mb-8">Catering Services</h1>
+                    <p class="text-gray-600 mb-8">Catering page will be implemented in the full version.</p>
+                    <button onclick="showHomePage()" class="btn-primary">Back to Home</button>
+                </div>
+            `;
+        };
+        window.showAboutPage = () => {
+            // Simple about page for now
+            document.getElementById('main-content').innerHTML = `
+                <div class="section-padding py-20">
+                    <h1 class="text-4xl font-bold mb-8">About Berry's Kitchen</h1>
+                    <p class="text-gray-600 mb-8">About page will be implemented in the full version.</p>
+                    <button onclick="showHomePage()" class="btn-primary">Back to Home</button>
+                </div>
+            `;
+        };
+        window.showCheckoutPage = () => {
+            // Simple checkout page for now
+            if (AppState.cart.length === 0) {
+                UIUtils.showToast('Your cart is empty!', 'error');
+                return;
+            }
+            
+            const subtotal = CartManager.getCartTotal();
+            const deliveryFee = 3.99;
+            const total = subtotal + deliveryFee;
+            
+            document.getElementById('main-content').innerHTML = `
+                <div class="section-padding py-20">
+                    <h1 class="text-4xl font-bold mb-8">Checkout</h1>
+                    <div class="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
+                        <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+                        <div class="space-y-4 mb-8">
+                            ${AppState.cart.map(item => `
+                                <div class="flex justify-between items-center py-3 border-b">
+                                    <div>
+                                        <div class="font-medium">${item.name} × ${item.quantity}</div>
+                                        <div class="text-sm text-gray-600">£${item.price.toFixed(2)} each</div>
+                                    </div>
+                                    <div class="font-bold">£${(item.price * item.quantity).toFixed(2)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="space-y-3 border-t pt-6">
+                            <div class="flex justify-between">
+                                <span>Subtotal</span>
+                                <span>£${subtotal.toFixed(2)}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Delivery Fee</span>
+                                <span>£${deliveryFee.toFixed(2)}</span>
+                            </div>
+                            <div class="flex justify-between text-xl font-bold pt-3 border-t">
+                                <span>Total</span>
+                                <span>£${total.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <div class="mt-8 space-y-4">
+                            <button onclick="placeOrder()" class="w-full btn-primary py-4 text-lg">
+                                Place Order (£${total.toFixed(2)})
+                            </button>
+                            <button onclick="showMenuPage()" class="w-full py-3 border-2 border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+        
+        window.placeOrder = async () => {
+            try {
+                const order = await MockAPI.createOrder({
+                    items: AppState.cart,
+                    total: CartManager.getCartTotal() + 3.99,
+                    userId: AppState.currentUser?.id || 'guest'
+                });
+                
+                CartManager.clearCart();
+                UIUtils.showToast('✓ Order placed successfully!', 'success');
+                
+                document.getElementById('main-content').innerHTML = `
+                    <div class="section-padding py-20 text-center">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-check text-green-600 text-3xl"></i>
+                        </div>
+                        <h1 class="text-4xl font-bold mb-6">Order Confirmed!</h1>
+                        <p class="text-gray-600 mb-8 max-w-md mx-auto">
+                            Thank you for your order. Your order #${order.id} has been received.
+                        </p>
+                        <button onclick="showHomePage()" class="btn-primary">
+                            Back to Home
+                        </button>
+                    </div>
+                `;
+            } catch (error) {
+                UIUtils.showToast('Failed to place order. Please try again.', 'error');
+            }
+        };
+        
+        window.showLoginModal = () => {
+            UIUtils.hideModal('register-modal');
+            UIUtils.hideModal('cart-modal');
+            UIUtils.showModal('login-modal');
+        };
+        
+        window.hideLoginModal = () => UIUtils.hideModal('login-modal');
+        
+        window.showRegisterModal = () => {
+            UIUtils.hideModal('login-modal');
+            UIUtils.showModal('register-modal');
+        };
+        
+        window.hideRegisterModal = () => UIUtils.hideModal('register-modal');
+        
+        window.hideCartModal = () => UIUtils.hideModal('cart-modal');
+        
+        window.handleLogin = (event) => AuthManager.handleLogin(event);
+        window.handleRegister = (event) => AuthManager.handleRegister(event);
+        
+        window.CartManager = CartManager;
+        window.PageRenderer = PageRenderer;
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            setupEventListeners();
+            CartManager.updateCartUI();
+            PageRenderer.showHomePage();
+            
+            // Check for stored user
+            const storedUser = localStorage.getItem('berrysKitchenCurrentUser');
+            if (storedUser) {
+                AppState.currentUser = JSON.parse(storedUser);
+                document.getElementById('login-btn').textContent = AppState.currentUser.name;
+                document.getElementById('mobile-login-btn').textContent = AppState.currentUser.name;
+            }
+        });
+    </script>
+</body>
+</html>
